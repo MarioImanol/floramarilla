@@ -21,6 +21,8 @@ body {
     position: relative;
     z-index: 10;
     display: flex;
+    flex-direction: column;
+    /* Cambiado para que los elementos se apilen en móviles */
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -33,6 +35,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 20px;
+    /* Espacio entre el sobre y la instrucción */
 }
 
 .envelope {
@@ -135,7 +139,7 @@ body {
 }
 
 
-/* --- Estilos para las flores --- */
+/* Estilos de las flores */
 
 .flower-side {
     position: absolute;
@@ -231,9 +235,6 @@ body {
     z-index: 1;
 }
 
-
-/* Los pétalos giran alrededor del centro con un 'translateY' para el espaciado */
-
 .petal:nth-child(1) {
     transform: rotate(0deg) translateY(-20px);
 }
@@ -267,16 +268,14 @@ body {
 }
 
 
-/* Nuevas flores añadidas */
+/* Estilos de las nuevas flores */
 
 .flower-side.behind-envelope {
     left: 50%;
     transform: translateX(-50%) rotate(0deg);
     bottom: -50px;
     z-index: 9;
-    /* Asegura que esté detrás del sobre */
     animation: none;
-    /* Desactivamos el movimiento para que no estorbe */
 }
 
 .flower-side.behind-envelope .flower-head {
@@ -287,25 +286,60 @@ body {
     left: 20%;
     transform: rotate(10deg);
     z-index: 4;
-    /* Un poco más abajo que la flor principal */
 }
 
 .flower-side.extra-right {
     right: 20%;
     transform: rotate(-10deg);
     z-index: 4;
-    /* Un poco más abajo que la flor principal */
 }
 
 .flower-side.extra-left .stem,
 .flower-side.extra-right .stem {
     height: 180px;
-    /* Tallo un poco más corto */
 }
 
 .flower-side.extra-left .flower-head,
 .flower-side.extra-right .flower-head {
     width: 80px;
-    /* Cabeza más pequeña */
     height: 80px;
+}
+
+@media screen and (max-width: 768px) {
+    /* Cambia la dirección del flexbox para que las flores y el sobre se apilen */
+    .container {
+        flex-direction: column;
+    }
+    /* Oculta las flores extra para no sobrecargar el diseño */
+    .flower-side.extra-left,
+    .flower-side.extra-right,
+    .flower-side.behind-envelope {
+        display: none;
+    }
+    /* Reubica y redimensiona las flores principales */
+    .flower-side {
+        position: static;
+        /* Quita el posicionamiento absoluto */
+        margin: 20px 0;
+        /* Agrega espacio vertical entre las flores y el sobre */
+        transform: none !important;
+        /* Resetea la rotación de la animación para evitar problemas */
+        animation: none !important;
+        /* Desactiva la animación para un diseño más estático y limpio */
+    }
+    .flower-side.left,
+    .flower-side.right {
+        position: relative;
+        /* Cambia a posicionamiento relativo para que se apilen */
+        left: auto;
+        right: auto;
+    }
+    .flower-head {
+        animation: none !important;
+        /* Desactiva la animación de la cabeza */
+    }
+    .message {
+        font-size: 1.5em;
+        /* Reduce el tamaño del texto del mensaje */
+    }
 }
